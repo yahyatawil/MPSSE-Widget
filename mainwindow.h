@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "ftd2xx.h"
 #include "QTableWidget"
+#include "QRadioButton"
+#include "QTimer"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -51,8 +53,31 @@ private:
     DWORD dwNumBytesToSend = 0; //Index of output buffer
     DWORD dwNumBytesSent = 0, dwNumBytesRead = 0, dwNumInputBuffer = 0;
     FT_DEVICE_LIST_INFO_NODE devInfo[ListSize];
-
+    QTimer* gpio_timer;
     uint8_t device_num = -1 ;
+
+    struct {
+        uint8_t h0 = -1 ;
+        uint8_t h1 = -1 ;
+        uint8_t h2 = -1 ;
+        uint8_t h3 = -1 ;
+        uint8_t h4 = -1 ;
+        uint8_t h5 = -1 ;
+        uint8_t h6 = -1 ;
+        uint8_t h7 = -1 ;
+    } gpioh_mode;
+
+    struct{
+        uint8_t l0 = -1 ;
+        uint8_t NU1=  1 ; // wait input
+        uint8_t l2 = -1 ;
+        uint8_t l3 = -1 ;
+        uint8_t NU4=  0 ; //cs output
+        uint8_t NU5 = 0 ; //clk output
+        uint8_t NU6 = 1 ; //DI input
+        uint8_t NU7 = 0 ; //DO output
+    } gpiol_mode;
+
 
     void Sleep(uint32_t delay_ms);
 
@@ -60,5 +85,9 @@ private slots:
     void ftdi_scan();
     void mpsse_setup();
     void on_Devices_t_itemClicked(QTableWidgetItem *item);
+    void ftdi_pinMode(uint8_t pin, uint8_t port, uint8_t mode);
+    void ftdi_pinOut(uint8_t pin, uint8_t port, uint8_t state);
+    void ftdi_gpio_read_handler();
+
 };
 #endif // MAINWINDOW_H

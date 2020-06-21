@@ -1,0 +1,4 @@
+QPushButton#state_gpioh0_pb,QPushButton#state_gpioh1_pb ,QPushButton#state_gpioh2_pb ,QPushButton#state_gpioh3_pb ,QPushButton#state_gpioh4_pb ,QPushButton#state_gpioh5_pb ,QPushButton#state_gpioh6_pb ,QPushButton#state_gpioh7_pb ,QPushButton#state_gpiol0_pb ,QPushButton#state_gpiol2_pb ,QPushButton#state_gpiol3_pb
+{
+    background: transparent;
+}
